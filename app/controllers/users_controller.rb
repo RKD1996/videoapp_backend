@@ -19,14 +19,11 @@ class UsersController < ApplicationController
     user = User.find_by_username(params[:username])
     if user.present?
       password = JWT.decode user.password_digest, user.password_salt, false, { algorithm: 'HS256' }
-      # raise password[0].inspect
       if password[0] == params[:password_digest]
         render :json => {
-          :user_data => {
             :name => user.name,
             :user_id => user.username,
             :token => BCrypt::Engine.generate_salt
-          }
         },
         :status => 200
       else
