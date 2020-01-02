@@ -6,4 +6,11 @@ Rails.application.routes.draw do
       post "/login", to: "users#login"
     end
   end
+
+  resources :videos do
+    collection do
+      get "/view_count_update/:id", to: "videos#view_count_update"
+      get "/search", to: "videos#video_search"
+    end
+  end
 end
